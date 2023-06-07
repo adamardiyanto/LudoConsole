@@ -1,0 +1,15 @@
+E:\adam\BootcampFMLX\LudoConsole\Ludo\bin\Debug\net7.0\Ludo.exe
+E:\adam\BootcampFMLX\LudoConsole\Ludo\bin\Debug\net7.0\Ludo.deps.json
+E:\adam\BootcampFMLX\LudoConsole\Ludo\bin\Debug\net7.0\Ludo.runtimeconfig.json
+E:\adam\BootcampFMLX\LudoConsole\Ludo\bin\Debug\net7.0\Ludo.dll
+E:\adam\BootcampFMLX\LudoConsole\Ludo\bin\Debug\net7.0\Ludo.pdb
+E:\adam\BootcampFMLX\LudoConsole\Ludo\obj\Debug\net7.0\Ludo.csproj.AssemblyReference.cache
+E:\adam\BootcampFMLX\LudoConsole\Ludo\obj\Debug\net7.0\Ludo.GeneratedMSBuildEditorConfig.editorconfig
+E:\adam\BootcampFMLX\LudoConsole\Ludo\obj\Debug\net7.0\Ludo.AssemblyInfoInputs.cache
+E:\adam\BootcampFMLX\LudoConsole\Ludo\obj\Debug\net7.0\Ludo.AssemblyInfo.cs
+E:\adam\BootcampFMLX\LudoConsole\Ludo\obj\Debug\net7.0\Ludo.csproj.CoreCompileInputs.cache
+E:\adam\BootcampFMLX\LudoConsole\Ludo\obj\Debug\net7.0\Ludo.dll
+E:\adam\BootcampFMLX\LudoConsole\Ludo\obj\Debug\net7.0\refint\Ludo.dll
+E:\adam\BootcampFMLX\LudoConsole\Ludo\obj\Debug\net7.0\Ludo.pdb
+E:\adam\BootcampFMLX\LudoConsole\Ludo\obj\Debug\net7.0\Ludo.genruntimeconfig.cache
+E:\adam\BootcampFMLX\LudoConsole\Ludo\obj\Debug\net7.0\ref\Ludo.dll

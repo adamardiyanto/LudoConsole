@@ -4,7 +4,7 @@ public class Dice : IDice
 {
     public int Roll()
     {
-        var rand = new Random();
+        Random rand = new();
         return rand.Next(1, 7);
     }
 }

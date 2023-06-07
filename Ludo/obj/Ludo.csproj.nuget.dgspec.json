@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\adam\\BootcampFMLX\\LudoConsole\\Ludo\\Ludo.csproj": {}
+    "E:\\adam\\BootcampFMLX\\LudoConsole\\Ludo\\Ludo.csproj": {}
   },
   "projects": {
-    "e:\\adam\\BootcampFMLX\\LudoConsole\\Ludo\\Ludo.csproj": {
+    "E:\\adam\\BootcampFMLX\\LudoConsole\\Ludo\\Ludo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\adam\\BootcampFMLX\\LudoConsole\\Ludo\\Ludo.csproj",
+        "projectUniqueName": "E:\\adam\\BootcampFMLX\\LudoConsole\\Ludo\\Ludo.csproj",
         "projectName": "Ludo",
-        "projectPath": "e:\\adam\\BootcampFMLX\\LudoConsole\\Ludo\\Ludo.csproj",
+        "projectPath": "E:\\adam\\BootcampFMLX\\LudoConsole\\Ludo\\Ludo.csproj",
         "packagesPath": "C:\\Users\\ADAM ARDI\\.nuget\\packages\\",
-        "outputPath": "e:\\adam\\BootcampFMLX\\LudoConsole\\Ludo\\obj\\",
+        "outputPath": "E:\\adam\\BootcampFMLX\\LudoConsole\\Ludo\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ADAM ARDI\\AppData\\Roaming\\NuGet\\NuGet.Config",
