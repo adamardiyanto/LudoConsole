@@ -28,4 +28,10 @@ public class Board
     {
         _startCells.Add(color, cell);
     }
+    public Board(List<int> safeCells, Dictionary<string, int> homeCells, Dictionary<string, int> startCells)
+    {
+        _safeCells = safeCells;
+        _homeCells = homeCells;
+        _startCells = startCells;
+    }
 }
