@@ -61,10 +61,6 @@ public class GameRunner
     {
         pawn.SetPosition(0); // set pawn position to 0 or to base
     }
-    public void StartGame()
-    {
-
-    }
     public void MovePawn(IPawn pawn, int step)
     {
         int position = pawn.GetPosition();
@@ -98,5 +94,9 @@ public class GameRunner
                 }
             }
         }
+    }
+    public void StartGame()
+    {
+
     }
 }
