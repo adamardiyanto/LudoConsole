@@ -1,7 +1,8 @@
-public enum Color
+namespace LudoApp;
+public enum EColor
 {
-    Red,
-    Blue,
-    Yellow,
-    Green
+    Red = 0,
+    Blue = 1,
+    Yellow = 2,
+    Green = 3
 }

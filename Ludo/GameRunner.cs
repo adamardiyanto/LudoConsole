@@ -5,5 +5,6 @@ public class GameRunner
     private IDice dice;
     private Dictionary<IPlayer, string> players;
     private Dictionary<IPlayer, IPawn> pawns;
-    
+    private IPlayer _currentPlayer;
+     
 }
