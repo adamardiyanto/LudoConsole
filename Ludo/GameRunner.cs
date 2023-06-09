@@ -4,10 +4,10 @@ public class GameRunner
     private Board _board;
     private IDice dice = new Dice();
     private Dictionary<IPlayer, string> _players;
-    private Dictionary<IPlayer, IPawn> _pawns;
+    private Dictionary<IPlayer, List<IPawn>> _pawns;
     private IPlayer _currentPlayer;
     private List<IPlayer> _playersOrder = new List<IPlayer>();
-    
+
     public void CreateBoard(List<int> safeCells, Dictionary<string, int> homeCells, Dictionary<string, int> startCells)
     {
         _board = new(safeCells, homeCells, startCells); // instantiate board?
@@ -22,7 +22,7 @@ public class GameRunner
     }
     public bool CheckIsSix(int value)
     {
-        bool isSix = (value == 6)? true : false; // check value is 6
+        bool isSix = (value == 6) ? true : false; // check value is 6
         return isSix; //return true if value is 6
     }
     public void SwitchTurn()
@@ -35,12 +35,13 @@ public class GameRunner
                 _playersOrder.Add(player.Key);
             }
             _currentPlayer = _playersOrder[0];
-        } else
+        }
+        else
         {
             int index = _playersOrder.IndexOf(_currentPlayer); // get index from current player 
             if (index < _playersOrder.Count - 1) // if player was not last order
             {
-                _currentPlayer = _playersOrder[index +1];
+                _currentPlayer = _playersOrder[index + 1];
             }
             else // if player was last order restart the order
             {
@@ -64,16 +65,22 @@ public class GameRunner
     public void MovePawn(IPawn pawn, int step)
     {
         int position = pawn.GetPosition();
-        if(_board.GetHomeCells().ContainsValue(position))
+        // chechk if step does not over the board
+        if (step + position > 58)
+        {
+            return;
+        }
+        if (_board.GetHomeCells().ContainsValue(position))
         {
             // move to colored cell
             pawn.SetPosition(53);
-            MovePawn(pawn, step-1);
+            MovePawn(pawn, step - 1);
         }
-        if(position == 52) //
+        if (position == 52) //
         {
             pawn.SetPosition(1); //restart position to 1
-        }else
+        }
+        else
         {
             pawn.SetPosition(position + 1); // move pawn to next position
         }
@@ -82,18 +89,36 @@ public class GameRunner
         {
             MovePawn(pawn, step);
         }
-        foreach (var kvp in _pawns)
+        foreach (var kvp in _players)
         {
-            // check if there is another pawn in cell
-            if (kvp.Value.GetPosition() == pawn.GetPosition())
+            // check if it is not the same pawn and not in safe cell
+            if (kvp.Key != pawn.GetPlayer() && !CheckIsSafeCell(pawn.GetPosition())) 
             {
-                // check if it is not the same pawn and not in safe cell
-                if (kvp.Key != pawn.GetPlayer() && !CheckIsSafeCell(pawn.GetPosition()))
+                List<IPawn> listIPawn = _pawns[kvp.Key];
+                foreach (var p in listIPawn)
                 {
-                    PawnToBase(kvp.Value); //send previous pawn to base
+                    // check if there is another pawn in cell
+                    if (p.GetPosition() == pawn.GetPosition())
+                    {
+                        PawnToBase(p);
+                    }
                 }
             }
         }
+    }
+    public bool CheckEndGame() // // under construction
+    {
+
+        foreach (var kvp in _players)
+        {
+            List<IPawn> listIPawn = _pawns[kvp.Key];
+            int totalPawn = listIPawn.Count(x => x.GetPosition() == 58);
+            if (totalPawn ==4)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     public void StartGame()
     {
