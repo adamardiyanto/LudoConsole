@@ -22,8 +22,8 @@ public class GameRunner
     }
     public bool CheckIsSix(int value)
     {
-        bool isSix = (value == 6) ? true : false; // check value is 6
-        return isSix; //return true if value is 6
+         // check value is 6
+        return value == 6; //return true if value is 6
     }
     public void SwitchTurn()
     {
@@ -106,7 +106,7 @@ public class GameRunner
             }
         }
     }
-    public bool CheckEndGame() // // under construction
+    public bool CheckEndGame() // 
     {
 
         foreach (var kvp in _players)
@@ -119,6 +119,19 @@ public class GameRunner
             }
         }
         return false;
+    }
+    public int CountPawnOutOfBase(IPlayer player) 
+    {
+        // count pawn which out of base
+        int totalPawn = 0;
+        foreach (var kvp in _pawns[player])
+        {
+            if (kvp.GetPosition() != 58 || kvp.GetPosition() != 58)
+            {
+                totalPawn++;
+            }
+        }
+        return totalPawn;
     }
     public void StartGame()
     {
