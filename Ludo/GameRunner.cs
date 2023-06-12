@@ -126,7 +126,7 @@ public class GameRunner
         int totalPawn = 0;
         foreach (var kvp in _pawns[player])
         {
-            if (kvp.GetPosition() != 58 || kvp.GetPosition() != 58)
+            if (!(kvp.GetPosition() is not 0 or not 58))
             {
                 totalPawn++;
             }
@@ -135,6 +135,70 @@ public class GameRunner
     }
     public void StartGame()
     {
+        if(_board == null)
+        {
 
+        }
+        if(_pawns == null)
+        {
+
+        }
+        SwitchTurn();
+        while(!CheckEndGame())
+        {
+            int diceValue = RollDice(); 
+            if (CountPawnOutOfBase(_currentPlayer) is 0) // there are no pawn out of base
+            {
+                if (CheckIsSix(diceValue))
+                {
+                    PawnToStart(_pawns[_currentPlayer][0], _players[_currentPlayer] );
+                }
+            } else if (CountPawnOutOfBase(_currentPlayer) is 1) // if there is a pawn out of base
+            {
+                if (CheckIsSix(diceValue ))
+                {
+                    Console.WriteLine("choose pawn out of base or move pawn");
+                    Console.WriteLine("press M to move pawn and press O to release pawn");
+                    if (Console.ReadKey().KeyChar == 'm')
+                    {
+                        foreach (var kvp in _pawns[_currentPlayer])
+                        {
+                            MovePawn(kvp,diceValue);
+                        }
+                    }
+                    else 
+                    {
+                        IPawn p = _pawns[_currentPlayer].Find(x=> x.GetPosition() is 0);
+                        PawnToStart(p, _players[_currentPlayer]);
+                    }
+                } else 
+                {
+                    IPawn p = _pawns[_currentPlayer].Find(x=> x.GetPosition()is not 0);
+                    MovePawn(p,diceValue);
+                }
+            } else
+            {
+                if (CheckIsSix(diceValue ))
+                {
+                    Console.WriteLine("choose pawn out of base or move pawn");
+                    Console.WriteLine("press M to move pawn and press O to release pawn");
+                    if (Console.ReadKey().KeyChar == 'm')
+                    {
+                        // select pawn to move
+                        List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(p => p.GetPosition() is not 0);
+                        
+                    }
+                    else 
+                    {
+                        IPawn p = _pawns[_currentPlayer].Find(x=> x.GetPosition()==0);
+                        PawnToStart(p, _players[_currentPlayer]);
+                    }
+                } else 
+                {
+                    // select pawn to move
+
+                }
+            }
+        }
     }
 }
