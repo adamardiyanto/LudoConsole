@@ -57,6 +57,7 @@ public class Display
                                 
                             }
                         }
+                        break;
                     case 1:
                         _currentBoard[7,14] = GetPawnColor(color);
                         break;
