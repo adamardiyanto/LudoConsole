@@ -8,9 +8,18 @@ public class GameRunner
     private IPlayer _currentPlayer;
     private List<IPlayer> _playersOrder = new List<IPlayer>();
 
+    public GameRunner(Board board, Dictionary<IPlayer,string> players)
+    {
+        _board = board;
+        _players = players;
+    }
     public void CreateBoard(List<int> safeCells, Dictionary<string, int> homeCells, Dictionary<string, int> startCells)
     {
         _board = new(safeCells, homeCells, startCells); // instantiate board?
+    }
+    public void CreatePawn(IPlayer player)
+    {
+        
     }
     public void AddPlayer(IPlayer player, string color)
     {

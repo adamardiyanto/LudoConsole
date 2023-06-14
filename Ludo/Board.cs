@@ -16,7 +16,7 @@ public class Board
     {
         return _homeCells;
     }
-    void SetHomeCells(string color, int cell)
+    public void SetHomeCells(string color, int cell)
     {
         _homeCells.Add(color, cell);
     }
@@ -24,7 +24,7 @@ public class Board
     {
         return _startCells;
     }
-    void SetStartCells(string color, int cell)
+    public void SetStartCells(string color, int cell)
     {
         _startCells.Add(color, cell);
     }
