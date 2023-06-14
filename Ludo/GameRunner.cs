@@ -6,9 +6,7 @@ public class GameRunner
     private Dictionary<IPlayer, string> _players;
     private Dictionary<IPlayer, List<IPawn>> _pawns;
     private IPlayer _currentPlayer;
-    private List<IPlayer> _playersOrder = new List<IPlayer>();
-
-    public GameRunner(Board board, Dictionary<IPlayer,string> players)
+    public GameRunner(Board board, Dictionary<IPlayer, string> players)
     {
         _board = board;
         _players = players;
@@ -19,7 +17,7 @@ public class GameRunner
     }
     public void CreatePawn(IPlayer player)
     {
-        
+        // ???
     }
     public void AddPlayer(IPlayer player, string color)
     {
@@ -33,30 +31,6 @@ public class GameRunner
     {
         // check value is 6
         return value == 6; //return true if value is 6
-    }
-    public void SwitchTurn()
-    {
-        if (_playersOrder.Count == 0) // check if playerorder is empty
-        {
-            // if empty, player will be added to players order
-            foreach (var player in _players)
-            {
-                _playersOrder.Add(player.Key);
-            }
-            _currentPlayer = _playersOrder[0];
-        }
-        else
-        {
-            int index = _playersOrder.IndexOf(_currentPlayer); // get index from current player 
-            if (index < _playersOrder.Count - 1) // if player was not last order
-            {
-                _currentPlayer = _playersOrder[index + 1];
-            }
-            else // if player was last order restart the order
-            {
-                _currentPlayer = _playersOrder[0];
-            }
-        }
     }
     public bool CheckIsSafeCell(int position)
     {
@@ -152,47 +126,68 @@ public class GameRunner
         {
 
         }
-        SwitchTurn();
         while (!CheckEndGame())
         {
-            int diceValue = RollDice();
-            if (CountPawnOutOfBase(_currentPlayer) is 0) // there are no pawn out of base
+            foreach (var player in _players) // looping each player
             {
-                if (CheckIsSix(diceValue))
+                int diceValue = RollDice();
+                if (CountPawnOutOfBase(_currentPlayer) is 0) // there are no pawn out of base
                 {
-                    PawnToStart(_pawns[_currentPlayer][0], _players[_currentPlayer]);
+                    if (CheckIsSix(diceValue))
+                    {
+                        PawnToStart(_pawns[_currentPlayer][0], _players[_currentPlayer]);
+                    }
                 }
-            }
-            else if (CountPawnOutOfBase(_currentPlayer) is 1) // if there is a pawn out of base
-            {
-                if (CheckIsSix(diceValue))
+                else if (CountPawnOutOfBase(_currentPlayer) is 1) // if there is a pawn out of base
+                {
+                    if (CheckIsSix(diceValue))
+                    {
+                        Console.WriteLine("choose pawn out of base or move pawn");
+                        Console.WriteLine("press M to move pawn and press O to release pawn");
+                        if (Console.ReadKey().KeyChar == 'm')
+                        {
+                            foreach (var kvp in _pawns[_currentPlayer])
+                            {
+                                MovePawn(kvp, diceValue);
+                            }
+                        }
+                        else
+                        {
+                            IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() is 0);
+                            PawnToStart(p, _players[_currentPlayer]);
+                        }
+                    }
+                    else
+                    {
+                        IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() is not 0);
+                        MovePawn(p, diceValue);
+                    }
+                }
+                else if (CheckIsSix(diceValue))
                 {
                     Console.WriteLine("choose pawn out of base or move pawn");
                     Console.WriteLine("press M to move pawn and press O to release pawn");
                     if (Console.ReadKey().KeyChar == 'm')
                     {
-                        foreach (var kvp in _pawns[_currentPlayer])
+                        // select pawn to move
+                        List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(p => p.GetPosition() is not 0);
+                        foreach (IPawn p in listPawns)
                         {
-                            MovePawn(kvp, diceValue);
+                            Console.WriteLine("pawn with position " + p.GetPosition());
                         }
+                        Console.WriteLine("select pawn to move");
+                        Console.WriteLine("enter number based on pawn order");
+                        _ = int.TryParse(Console.ReadLine(), out int number);
+                        // next should add condition if out of bound
+                        MovePawn(listPawns[number - 1], diceValue);
                     }
                     else
                     {
-                        IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() is 0);
+                        IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() == 0);
                         PawnToStart(p, _players[_currentPlayer]);
                     }
                 }
                 else
-                {
-                    IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() is not 0);
-                    MovePawn(p, diceValue);
-                }
-            }
-            else if (CheckIsSix(diceValue))
-            {
-                Console.WriteLine("choose pawn out of base or move pawn");
-                Console.WriteLine("press M to move pawn and press O to release pawn");
-                if (Console.ReadKey().KeyChar == 'm')
                 {
                     // select pawn to move
                     List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(p => p.GetPosition() is not 0);
@@ -205,26 +200,8 @@ public class GameRunner
                     _ = int.TryParse(Console.ReadLine(), out int number);
                     // next should add condition if out of bound
                     MovePawn(listPawns[number - 1], diceValue);
+
                 }
-                else
-                {
-                    IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() == 0);
-                    PawnToStart(p, _players[_currentPlayer]);
-                }
-            }
-            else
-            {
-                // select pawn to move
-                List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(p => p.GetPosition() is not 0);
-                foreach (IPawn p in listPawns)
-                {
-                    Console.WriteLine("pawn with position " + p.GetPosition());
-                }
-                Console.WriteLine("select pawn to move");
-                Console.WriteLine("enter number based on pawn order");
-                _ = int.TryParse(Console.ReadLine(), out int number);
-                // next should add condition if out of bound
-                MovePawn(listPawns[number - 1], diceValue);
 
             }
         }
