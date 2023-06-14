@@ -1,6 +1,8 @@
 namespace LudoApp;
+public delegate void OnChangeDisplay();
 public class Display
 {
+    public event OnChangeDisplay DisplayChanged;
     private string[,] _plainBoard = new string[,]
     {  //    '1' '2' '3' '4' '5' '6' '7' '8' '9' "[ ]" '1' '2' '3' '4' '5'  
         {" | ","---","---","---","---","---","---","---","---","---","---","---","---","---","---","---"," | "}, 
@@ -22,6 +24,7 @@ public class Display
         {" | ","---","---","---","---","---","---","---","---","---","---","---","---","---","---","---"," | "},
     };
     private string[,] _currentBoard = new string[17,17];
+    
     public void ClearBoard()
     {
         _currentBoard = _plainBoard;
@@ -50,11 +53,77 @@ public class Display
                 switch(pawn.GetPosition())
                 {
                     case 0:
-                        if (pawnBase == 4)
+                        if(p.Value==Color.Red.ToString())
                         {
-                            if (color == Color.Red.ToString())
+                            int order = listPawn.IndexOf(pawn);
+                            switch(order)
                             {
-                                
+                                case 0:
+                                    _currentBoard[13,4] = GetPawnColor(color);
+                                break;
+                                case 1:
+                                    _currentBoard[13,3] = GetPawnColor(color);
+                                break;
+                                case 2:
+                                    _currentBoard[12,4] = GetPawnColor(color);
+                                break;
+                                case 3:
+                                    _currentBoard[12,3] = GetPawnColor(color);
+                                break;
+                            }
+                        }else if (p.Value==Color.Green.ToString())
+                        {
+                            int order = listPawn.IndexOf(pawn);
+                            switch(order)
+                            {
+                                case 0:
+                                    _currentBoard[4,4] = GetPawnColor(color);
+                                break;
+                                case 1:
+                                    _currentBoard[4,3] = GetPawnColor(color);
+                                break;
+                                case 2:
+                                    _currentBoard[3,4] = GetPawnColor(color);
+                                break;
+                                case 3:
+                                    _currentBoard[3,3] = GetPawnColor(color);
+                                break;
+                            }
+                        }else if (p.Value==Color.Blue.ToString())
+                        {
+                            int order = listPawn.IndexOf(pawn);
+                            switch(order)
+                            {
+                                case 0:
+                                    _currentBoard[4,13] = GetPawnColor(color);
+                                break;
+                                case 1:
+                                    _currentBoard[4,12] = GetPawnColor(color);
+                                break;
+                                case 2:
+                                    _currentBoard[3,13] = GetPawnColor(color);
+                                break;
+                                case 3:
+                                    _currentBoard[3,12] = GetPawnColor(color);
+                                break;
+                            }
+                        }else // yellow 
+                        {
+                            int order = listPawn.IndexOf(pawn);
+                            switch(order)
+                            {
+                                case 0:
+                                    _currentBoard[13,13] = GetPawnColor(color);
+                                break;
+                                case 1:
+                                    _currentBoard[13,12] = GetPawnColor(color);
+                                break;
+                                case 2:
+                                    _currentBoard[12,13] = GetPawnColor(color);
+                                break;
+                                case 3:
+                                    _currentBoard[12,12] = GetPawnColor(color);
+                                break;
                             }
                         }
                         break;

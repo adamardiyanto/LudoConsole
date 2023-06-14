@@ -11,13 +11,13 @@ public class GameRunner
         _board = board;
         _players = players;
     }
-    public void CreateBoard(List<int> safeCells, Dictionary<string, int> homeCells, Dictionary<string, int> startCells)
+    // public void CreateBoard(List<int> safeCells, Dictionary<string, int> homeCells, Dictionary<string, int> startCells)
+    // {
+    //     _board = new(safeCells, homeCells, startCells); // instantiate board?
+    // }
+    public void SetPawnList(Dictionary<IPlayer, List<IPawn>> pawnList)
     {
-        _board = new(safeCells, homeCells, startCells); // instantiate board?
-    }
-    public void CreatePawn(IPlayer player)
-    {
-        // ???
+        _pawns = pawnList;
     }
     public void AddPlayer(IPlayer player, string color)
     {
@@ -130,8 +130,12 @@ public class GameRunner
         {
             foreach (var player in _players) // looping each player
             {
+                _currentPlayer = player.Key;
+                Console.WriteLine(player.Key.Name + " press enter to roll dice");
+                Console.ReadLine() ;
                 int diceValue = RollDice();
-                if (CountPawnOutOfBase(_currentPlayer) is 0) // there are no pawn out of base
+                Console.WriteLine(diceValue);
+                if (CountPawnOutOfBase(player.Key) is 0) // there are no pawn out of base
                 {
                     if (CheckIsSix(diceValue))
                     {
