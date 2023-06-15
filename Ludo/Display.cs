@@ -1,18 +1,10 @@
 namespace LudoApp;
-
-public class Display
+public delegate void DelegateClear();
+public delegate void DelegateUpdate(Dictionary<IPlayer,List<IPawn>> pawns, Dictionary<IPlayer, string> players);
+public delegate void DelegateShow();
+static public class Display
 {
-    public EventHandler DisplayChanged;
-    public void ShowDisplay()
-    {
-        Console.WriteLine("display changed ");
-        OnDisplayChanged(EventArgs.Empty);
-    }
-    public virtual void OnDisplayChanged(EventArgs args)
-    {
-        DisplayChanged?.Invoke(this, args);
-    }
-    private string[,] _plainBoard = new string[,]
+    static private string[,] _plainBoard = new string[,]
     {  //    '1' '2' '3' '4' '5' '6' '7' '8' '9' "[ ]" '1' '2' '3' '4' '5'  
         {" | ","---","---","---","---","---","---","---","---","---","---","---","---","---","---","---"," | "}, 
         {" | "," + "," + "," + "," + "," + "," + ","[ ]","[ ]","[ ]"," + "," + "," + "," + "," + "," + "," | "}, // 1
@@ -32,14 +24,15 @@ public class Display
         {" | "," + "," + "," + "," + "," + "," + ","[ ]","[ ]","[ ]"," + "," + "," + "," + "," + "," + "," | "}, // 15
         {" | ","---","---","---","---","---","---","---","---","---","---","---","---","---","---","---"," | "},
     };
-    private string[,] _currentBoard = new string[17,17];
+    static private string[,] _currentBoard = new string[17,17];
     
-    public void ClearBoard()
+    static public void ClearBoard()
     {
-        _currentBoard = _plainBoard;
+        _currentBoard = (string[,])_plainBoard.Clone();
     }
-    public void ShowBoard()
+    static public void ShowBoard()
     {
+        Console.WriteLine();
         for(int i = 0; i < _currentBoard.GetLength(0); i++)
         {
             for(int j = 0; j < _currentBoard.GetLength(1); j++)
@@ -49,7 +42,7 @@ public class Display
             Console.WriteLine();
         }
     }
-    public void UpdateBoard(Dictionary<IPlayer,List<IPawn>> pawns, Dictionary<IPlayer, string> players)
+    static public void UpdateBoard(Dictionary<IPlayer,List<IPawn>> pawns, Dictionary<IPlayer, string> players)
     {
         foreach (var p in players)
         {
@@ -373,7 +366,7 @@ public class Display
             }
         }
     }
-    public string GetPawnColor(string color)
+    static public string GetPawnColor(string color)
     {
         if (color == Color.Blue.ToString()) return "[B]";
         else if (color == Color.Yellow.ToString()) return "[Y]";

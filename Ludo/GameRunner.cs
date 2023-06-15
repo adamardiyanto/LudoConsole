@@ -3,9 +3,10 @@ public class GameRunner
 {
     private Board _board;
     private IDice dice = new Dice();
-    private Dictionary<IPlayer, string> _players;
-    private Dictionary<IPlayer, List<IPawn>> _pawns;
+    static private Dictionary<IPlayer, string> _players;
+    static private Dictionary<IPlayer, List<IPawn>> _pawns;
     private IPlayer _currentPlayer;
+
     public GameRunner(Board board, Dictionary<IPlayer, string> players)
     {
         _board = board;
@@ -14,7 +15,11 @@ public class GameRunner
     // public void CreateBoard(List<int> safeCells, Dictionary<string, int> homeCells, Dictionary<string, int> startCells)
     // {
     //     _board = new(safeCells, homeCells, startCells); // instantiate board?
-    // }
+    // }(
+    //create instance for delegate
+    DelegateClear clearBoard = Display.ClearBoard;
+    DelegateUpdate updateBoard = Display.UpdateBoard;
+    DelegateShow showBoard = Display.ShowBoard;
     public void SetPawnList(Dictionary<IPlayer, List<IPawn>> pawnList)
     {
         _pawns = pawnList;
@@ -72,10 +77,10 @@ public class GameRunner
             pawn.SetPosition(position + 1); // move pawn to next position
         }
         step--;
-        if (step != 0)
+        if (step > 0)
         {
             MovePawn(pawn, step);
-            Console.WriteLine(step);
+            //Console.WriteLine(step);
         }
         foreach (var kvp in _players)
         {
@@ -131,6 +136,9 @@ public class GameRunner
         {
 
         }
+        clearBoard();
+        updateBoard(_pawns, _players);
+        showBoard();
         while (!CheckEndGame())
         {
             foreach (var player in _players) // looping each player
@@ -233,7 +241,9 @@ public class GameRunner
                         MovePawn(listPawns[number - 1], diceValue);
 
                     }
-
+                    clearBoard();
+                    updateBoard(_pawns, _players);
+                    showBoard();
                 } while (diceValue == 6);
 
             }
