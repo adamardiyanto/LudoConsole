@@ -47,7 +47,7 @@ public class Program
         foreach (var p in _playerList)
         {
             _pawnList.Add(p.Key, CreatePawn(p.Key));
-            
+            Console.WriteLine(_pawnList[p.Key][0].GetPosition());
         }
         _runner.SetPawnList(_pawnList);
 

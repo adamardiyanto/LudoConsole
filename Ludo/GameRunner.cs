@@ -47,6 +47,10 @@ public class GameRunner
     }
     public void MovePawn(IPawn pawn, int step)
     {
+        if(step == 0)
+        {
+            
+        }
         int position = pawn.GetPosition();
         // chechk if step does not over the board
         if (step + position > 58)
@@ -71,6 +75,7 @@ public class GameRunner
         if (step != 0)
         {
             MovePawn(pawn, step);
+            Console.WriteLine(step);
         }
         foreach (var kvp in _players)
         {
@@ -109,7 +114,7 @@ public class GameRunner
         int totalPawn = 0;
         foreach (var kvp in _pawns[player])
         {
-            if (!(kvp.GetPosition() is not 0 or not 58))
+            if (kvp.GetPosition() != 0 && kvp.GetPosition() != 58)
             {
                 totalPawn++;
             }
@@ -135,11 +140,14 @@ public class GameRunner
                 Console.ReadLine() ;
                 int diceValue = RollDice();
                 Console.WriteLine(diceValue);
-                if (CountPawnOutOfBase(player.Key) is 0) // there are no pawn out of base
+                Console.WriteLine(CountPawnOutOfBase(_currentPlayer));
+                if (CountPawnOutOfBase(_currentPlayer) is 0) // there are no pawn out of base
                 {
                     if (CheckIsSix(diceValue))
                     {
                         PawnToStart(_pawns[_currentPlayer][0], _players[_currentPlayer]);
+                        Console.WriteLine(_pawns[_currentPlayer][0].GetPosition());
+                        Console.WriteLine(CountPawnOutOfBase(_currentPlayer));
                     }
                 }
                 else if (CountPawnOutOfBase(_currentPlayer) is 1) // if there is a pawn out of base
@@ -150,10 +158,8 @@ public class GameRunner
                         Console.WriteLine("press M to move pawn and press O to release pawn");
                         if (Console.ReadKey().KeyChar == 'm')
                         {
-                            foreach (var kvp in _pawns[_currentPlayer])
-                            {
-                                MovePawn(kvp, diceValue);
-                            }
+                            IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() is not 0);
+                            MovePawn(p, diceValue);
                         }
                         else
                         {

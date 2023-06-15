@@ -2,7 +2,7 @@ namespace LudoApp;
 public enum Color
 {
     Red = 0,
-    Blue = 1,
-    Yellow = 2,
-    Green = 3
+    Green = 1,
+    Blue = 2,
+    Yellow = 3
 }
