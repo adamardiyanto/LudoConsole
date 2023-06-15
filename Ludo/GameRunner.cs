@@ -15,10 +15,6 @@ public class GameRunner
         _board = board;
         _players = players;
     }
-    // public void CreateBoard(List<int> safeCells, Dictionary<string, int> homeCells, Dictionary<string, int> startCells)
-    // {
-    //     _board = new(safeCells, homeCells, startCells); // instantiate board?
-    // }(
     //create instance for delegate
     DelegateClear clearBoard = Display.ClearBoard;
     DelegateUpdate updateBoard = Display.UpdateBoard;
