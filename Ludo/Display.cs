@@ -1,8 +1,17 @@
 namespace LudoApp;
-public delegate void OnChangeDisplay();
+
 public class Display
 {
-    public event OnChangeDisplay DisplayChanged;
+    public EventHandler DisplayChanged;
+    public void ShowDisplay()
+    {
+        Console.WriteLine("display changed ");
+        OnDisplayChanged(EventArgs.Empty);
+    }
+    public virtual void OnDisplayChanged(EventArgs args)
+    {
+        DisplayChanged?.Invoke(this, args);
+    }
     private string[,] _plainBoard = new string[,]
     {  //    '1' '2' '3' '4' '5' '6' '7' '8' '9' "[ ]" '1' '2' '3' '4' '5'  
         {" | ","---","---","---","---","---","---","---","---","---","---","---","---","---","---","---"," | "}, 
