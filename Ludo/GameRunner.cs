@@ -151,14 +151,15 @@ public class GameRunner
                     Console.ReadLine();
                     diceValue = RollDice();
                     Console.WriteLine(diceValue);
-                    Console.WriteLine(CountPawnOutOfBase(_currentPlayer));
+                    Console.ReadLine();
+                    //Console.WriteLine(CountPawnOutOfBase(_currentPlayer));
                     if (CountPawnOutOfBase(_currentPlayer) is 0) // there are no pawn out of base
                     {
                         if (CheckIsSix(diceValue))
                         {
                             PawnToStart(_pawns[_currentPlayer][0], _players[_currentPlayer]);
-                            Console.WriteLine(_pawns[_currentPlayer][0].GetPosition());
-                            Console.WriteLine(CountPawnOutOfBase(_currentPlayer));
+                            //Console.WriteLine(_pawns[_currentPlayer][0].GetPosition());
+                            //Console.WriteLine(CountPawnOutOfBase(_currentPlayer));
                         }
                     }
                     else if (CountPawnOutOfBase(_currentPlayer) is 1) // if there is a pawn out of base

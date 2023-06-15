@@ -28,6 +28,7 @@ static public class Display
     
     static public void ClearBoard()
     {
+        Console.Clear();
         _currentBoard = (string[,])_plainBoard.Clone();
     }
     static public void ShowBoard()
