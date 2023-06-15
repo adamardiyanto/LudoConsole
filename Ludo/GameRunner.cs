@@ -52,35 +52,32 @@ public class GameRunner
     }
     public void MovePawn(IPawn pawn, int step)
     {
-        if (step == 0)
-        {
-
-        }
         int position = pawn.GetPosition();
-        // chechk if step does not over the board
-        if (step + position > 58)
-        {
-            return;
-        }
-        if (_board.GetHomeCells().ContainsValue(position))
-        {
-            // move to colored cell
-            pawn.SetPosition(53);
-            MovePawn(pawn, step - 1);
-        }
-        if (position == 52) //
-        {
-            pawn.SetPosition(1); //restart position to 1
-        }
-        else
-        {
-            pawn.SetPosition(position + 1); // move pawn to next position
-        }
-        step--;
         if (step > 0)
         {
-            MovePawn(pawn, step);
-            //Console.WriteLine(step);
+            if (step + position <= 58)
+            {
+                if (position == _board.GetHomeCells()[_players[pawn.GetPlayer()]])
+                {
+                    // move to colored cell
+                    pawn.SetPosition(53);
+                    MovePawn(pawn, step - 1);
+                    Console.WriteLine(_board.GetHomeCells().ContainsValue(position));
+                }
+                else if (position == 52)
+                {
+                    pawn.SetPosition(1); //restart position to 1
+                }
+                else
+                {
+                    pawn.SetPosition(position + 1);
+                }
+            }
+            else
+            {
+                return;
+            }
+            MovePawn(pawn, step - 1);
         }
         foreach (var kvp in _players)
         {
