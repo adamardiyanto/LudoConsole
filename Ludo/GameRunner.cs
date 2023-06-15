@@ -98,17 +98,17 @@ public class GameRunner
     }
     public bool CheckEndGame() // 
     {
-
+        int finish = 0;
         foreach (var kvp in _players)
         {
             List<IPawn> listIPawn = _pawns[kvp.Key];
             int totalPawn = listIPawn.Count(x => x.GetPosition() == 58);
             if (totalPawn == 4)
             {
-                return true;
+                finish++;
             }
         }
-        return false;
+        return finish == _players.Count - 1;
     }
     public int CountPawnOutOfBase(IPlayer player)
     {
@@ -127,11 +127,11 @@ public class GameRunner
     {
         if (_board == null)
         {
-
+            return;
         }
         if (_pawns == null)
         {
-
+            return;
         }
         clearBoard();
         updateBoard(_pawns, _players);
