@@ -361,7 +361,81 @@ static public class Display
                             _currentBoard[8,10] = GetPawnColor(color);
                         }
                         break;
-                    
+                    case 58:
+                        if(p.Value==Color.Red.ToString())
+                        {
+                            int order = listPawn.IndexOf(pawn);
+                            switch(order)
+                            {
+                                case 0:
+                                    _currentBoard[13,4] = "[1]";
+                                break;
+                                case 1:
+                                    _currentBoard[13,3] = "[2]";
+                                break;
+                                case 2:
+                                    _currentBoard[12,4] = "[3]";
+                                break;
+                                case 3:
+                                    _currentBoard[12,3] = "[4]";
+                                break;
+                            }
+                        }else if (p.Value==Color.Green.ToString())
+                        {
+                            int order = listPawn.IndexOf(pawn);
+                            switch(order)
+                            {
+                                case 0:
+                                    _currentBoard[4,4] = "[1]";
+                                break;
+                                case 1:
+                                    _currentBoard[4,3] = "[2]";
+                                break;
+                                case 2:
+                                    _currentBoard[3,4] = "[3]";
+                                break;
+                                case 3:
+                                    _currentBoard[3,3] = "[4]";
+                                break;
+                            }
+                        }else if (p.Value==Color.Blue.ToString())
+                        {
+                            int order = listPawn.IndexOf(pawn);
+                            switch(order)
+                            {
+                                case 0:
+                                    _currentBoard[4,13] = "[1]";
+                                break;
+                                case 1:
+                                    _currentBoard[4,12] = "[2]";
+                                break;
+                                case 2:
+                                    _currentBoard[3,13] = "[3]";
+                                break;
+                                case 3:
+                                    _currentBoard[3,12] = "[4]";
+                                break;
+                            }
+                        }else // yellow 
+                        {
+                            int order = listPawn.IndexOf(pawn);
+                            switch(order)
+                            {
+                                case 0:
+                                    _currentBoard[13,13] = "[1]";
+                                break;
+                                case 1:
+                                    _currentBoard[13,12] = "[2]";
+                                break;
+                                case 2:
+                                    _currentBoard[12,13] = "[3]";
+                                break;
+                                case 3:
+                                    _currentBoard[12,12] = "[4]";
+                                break;
+                            }
+                        }
+                        break;
 
                 }
             }
