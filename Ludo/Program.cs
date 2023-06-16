@@ -32,7 +32,7 @@ public class Program
         //create player
         for(int i = 0; i < numberOfPlayer; i++)
         {
-            Console.WriteLine("player {0} please enter your name : ",i);
+            Console.WriteLine("player {0} please enter your name : ",i+1);
             string name = Console.ReadLine();
             player[i] = new Player(i, name);
             //tempListPlayer.Add(player[i]);
