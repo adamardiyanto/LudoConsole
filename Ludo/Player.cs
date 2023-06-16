@@ -9,6 +9,5 @@ public class Player : IPlayer
     {
         this.Name = name;
         this.ID = id;
-        Console.WriteLine("player " + name + " has created ");
     }
 }

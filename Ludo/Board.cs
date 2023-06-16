@@ -4,6 +4,12 @@ public class Board
     private List<int> _safeCells = new();
     private Dictionary<string, int> _homeCells = new();
     private Dictionary<string, int> _startCells = new();
+    public Board(List<int> safeCells, Dictionary<string, int> homeCells, Dictionary<string, int> startCells)
+    {
+        _safeCells = safeCells;
+        _homeCells = homeCells;
+        _startCells = startCells;
+    }
     public List<int> GetSafeCells()
     {
         return _safeCells;
@@ -27,11 +33,5 @@ public class Board
     public void SetStartCells(string color, int cell)
     {
         _startCells.Add(color, cell);
-    }
-    public Board(List<int> safeCells, Dictionary<string, int> homeCells, Dictionary<string, int> startCells)
-    {
-        _safeCells = safeCells;
-        _homeCells = homeCells;
-        _startCells = startCells;
     }
 }
