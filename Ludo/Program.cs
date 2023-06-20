@@ -3,9 +3,9 @@
 public class Program
 {
     static List<int> _safeCell = new List<int>() { 1, 9, 14, 22, 27, 35, 40, 48 };
-    static private Dictionary<string, int> _startCell = new Dictionary<string, int>();
-    static private Dictionary<string, int> _homeCell = new Dictionary<string, int>();
-    static private Dictionary<IPlayer, string> _playerList = new Dictionary<IPlayer, string>();
+    static private Dictionary<Color, int> _startCell = new Dictionary<Color, int>();
+    static private Dictionary<Color, int> _homeCell = new Dictionary<Color, int>();
+    static private Dictionary<IPlayer, Color> _playerList = new Dictionary<IPlayer, Color>();
     static private Dictionary<IPlayer, List<IPawn>> _pawnList = new Dictionary<IPlayer, List<IPawn>>();
     static private Board _board;
     static GameRunner _runner;
@@ -15,15 +15,15 @@ public class Program
 
     public static void Main(string[] args)
     {
-        _startCell.Add(Color.Red.ToString(), 1);
-        _startCell.Add(Color.Green.ToString(), 14);
-        _startCell.Add(Color.Blue.ToString(), 27);
-        _startCell.Add(Color.Yellow.ToString(), 40);
+        _startCell.Add(Color.Red, 1);
+        _startCell.Add(Color.Green, 14);
+        _startCell.Add(Color.Blue, 27);
+        _startCell.Add(Color.Yellow, 40);
 
-        _homeCell.Add(Color.Red.ToString(), 51);
-        _homeCell.Add(Color.Green.ToString(), 12);
-        _homeCell.Add(Color.Blue.ToString(), 25);
-        _homeCell.Add(Color.Yellow.ToString(), 38);
+        _homeCell.Add(Color.Red, 51);
+        _homeCell.Add(Color.Green, 12);
+        _homeCell.Add(Color.Blue, 25);
+        _homeCell.Add(Color.Yellow, 38);
 
         _board = new Board(_safeCell, _homeCell, _startCell); //create a new board
 
@@ -41,7 +41,7 @@ public class Program
             player[i] = new Player(i, name);
             //tempListPlayer.Add(player[i]);
             //temporary direct asign order and color
-            _playerList.Add(player[i], ((Color)i).ToString()); // add player to list
+            _playerList.Add(player[i], (Color)i); // add player to list
         }
         //create GameRunner
         Console.WriteLine("creating GameRunner...");

@@ -3,14 +3,14 @@ public class GameRunner
 {
     private Board _board;
     private IDice dice = new Dice();
-    static private Dictionary<IPlayer, string> _players;
+    static private Dictionary<IPlayer, Color> _players;
     static private Dictionary<IPlayer, List<IPawn>> _pawns;
     private IPlayer _currentPlayer;
     const int triangleCell = 58;
     const int endCell = 52;
     const int baseCell = 0;
 
-    public GameRunner(Board board, Dictionary<IPlayer, string> players)
+    public GameRunner(Board board, Dictionary<IPlayer, Color> players)
     {
         _board = board;
         _players = players;
@@ -23,7 +23,7 @@ public class GameRunner
     {
         _pawns = pawnList;
     }
-    public void AddPlayer(IPlayer player, string color)
+    public void AddPlayer(IPlayer player, Color color)
     {
         _players.Add(player, color); // add player
     }
@@ -40,7 +40,7 @@ public class GameRunner
     {
         return _board.GetSafeCells().Contains(position); // return true if cell is safe
     }
-    public void PawnToStart(IPawn pawn, string color)
+    public void PawnToStart(IPawn pawn, Color color)
     {
         int startPos = _board.GetStartCells()[color]; // get the start position from board
         pawn.SetPosition(startPos);// set pawn position to start by its color

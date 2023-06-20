@@ -1,6 +1,6 @@
 namespace LudoApp;
 public delegate void DelegateClear();
-public delegate void DelegateUpdate(Dictionary<IPlayer,List<IPawn>> pawns, Dictionary<IPlayer, string> players);
+public delegate void DelegateUpdate(Dictionary<IPlayer,List<IPawn>> pawns, Dictionary<IPlayer, Color> players);
 public delegate void DelegateShow();
 static public class Display
 {
@@ -43,20 +43,20 @@ static public class Display
             Console.WriteLine();
         }
     }
-    static public void UpdateBoard(Dictionary<IPlayer,List<IPawn>> pawns, Dictionary<IPlayer, string> players)
+    static public void UpdateBoard(Dictionary<IPlayer,List<IPawn>> pawns, Dictionary<IPlayer, Color> players)
     {
         foreach (var p in players)
         {
             //cek per player
             List<IPawn> listPawn = pawns[p.Key];
-            string color = p.Value;
+            Color color = p.Value;
             int pawnBase = listPawn.Count(x => x.GetPosition()==0);
             foreach(var pawn in listPawn)
             {
                 switch(pawn.GetPosition())
                 {
                     case 0:
-                        if(p.Value==Color.Red.ToString())
+                        if(p.Value==Color.Red)
                         {
                             int order = listPawn.IndexOf(pawn);
                             switch(order)
@@ -74,7 +74,7 @@ static public class Display
                                     _currentBoard[12,3] = GetPawnColor(color);
                                 break;
                             }
-                        }else if (p.Value==Color.Green.ToString())
+                        }else if (p.Value==Color.Green)
                         {
                             int order = listPawn.IndexOf(pawn);
                             switch(order)
@@ -92,7 +92,7 @@ static public class Display
                                     _currentBoard[3,3] = GetPawnColor(color);
                                 break;
                             }
-                        }else if (p.Value==Color.Blue.ToString())
+                        }else if (p.Value==Color.Blue)
                         {
                             int order = listPawn.IndexOf(pawn);
                             switch(order)
@@ -287,82 +287,82 @@ static public class Display
                         _currentBoard[15,7] = GetPawnColor(color);
                         break;
                     case 53:// move to colored cell
-                        if (color == Color.Red.ToString())
+                        if (color == Color.Red)
                         {
                             _currentBoard[14,8] = GetPawnColor(color);
-                        }else if(color == Color.Green.ToString())
+                        }else if(color == Color.Green)
                         {
                             _currentBoard[8,2] = GetPawnColor(color);
-                        }else if(color == Color.Blue.ToString())
+                        }else if(color == Color.Blue)
                         {
                             _currentBoard[2,8] = GetPawnColor(color);
-                        }else if(color == Color.Yellow.ToString())
+                        }else if(color == Color.Yellow)
                         {
                             _currentBoard[8,14] = GetPawnColor(color);
                         }
                         break;
                     case 54:// move to colored cell
-                        if (color == Color.Red.ToString())
+                        if (color == Color.Red)
                         {
                             _currentBoard[13,8] = GetPawnColor(color);
-                        }else if(color == Color.Green.ToString())
+                        }else if(color == Color.Green)
                         {
                             _currentBoard[8,3] = GetPawnColor(color);
-                        }else if(color == Color.Blue.ToString())
+                        }else if(color == Color.Blue)
                         {
                             _currentBoard[3,8] = GetPawnColor(color);
-                        }else if(color == Color.Yellow.ToString())
+                        }else if(color == Color.Yellow)
                         {
                             _currentBoard[8,13] = GetPawnColor(color);
                         }
                         break;
                     case 55:// move to colored cell
-                        if (color == Color.Red.ToString())
+                        if (color == Color.Red)
                         {
                             _currentBoard[12,8] = GetPawnColor(color);
-                        }else if(color == Color.Green.ToString())
+                        }else if(color == Color.Green)
                         {
                             _currentBoard[8,4] = GetPawnColor(color);
-                        }else if(color == Color.Blue.ToString())
+                        }else if(color == Color.Blue)
                         {
                             _currentBoard[4,8] = GetPawnColor(color);
-                        }else if(color == Color.Yellow.ToString())
+                        }else if(color == Color.Yellow)
                         {
                             _currentBoard[8,12] = GetPawnColor(color);
                         }
                         break;
                     case 56:// move to colored cell
-                        if (color == Color.Red.ToString())
+                        if (color == Color.Red)
                         {
                             _currentBoard[11,8] = GetPawnColor(color);
-                        }else if(color == Color.Green.ToString())
+                        }else if(color == Color.Green)
                         {
                             _currentBoard[8,5] = GetPawnColor(color);
-                        }else if(color == Color.Blue.ToString())
+                        }else if(color == Color.Blue)
                         {
                             _currentBoard[5,8] = GetPawnColor(color);
-                        }else if(color == Color.Yellow.ToString())
+                        }else if(color == Color.Yellow)
                         {
                             _currentBoard[8,11] = GetPawnColor(color);
                         }
                         break;
                     case 57:// move to colored cell
-                        if (color == Color.Red.ToString())
+                        if (color == Color.Red)
                         {
                             _currentBoard[10,8] = GetPawnColor(color);
-                        }else if(color == Color.Green.ToString())
+                        }else if(color == Color.Green)
                         {
                             _currentBoard[8,6] = GetPawnColor(color);
-                        }else if(color == Color.Blue.ToString())
+                        }else if(color == Color.Blue)
                         {
                             _currentBoard[6,8] = GetPawnColor(color);
-                        }else if(color == Color.Yellow.ToString())
+                        }else if(color == Color.Yellow)
                         {
                             _currentBoard[8,10] = GetPawnColor(color);
                         }
                         break;
                     case 58:
-                        if(p.Value==Color.Red.ToString())
+                        if(p.Value==Color.Red)
                         {
                             int order = listPawn.IndexOf(pawn);
                             switch(order)
@@ -380,7 +380,7 @@ static public class Display
                                     _currentBoard[12,3] = "[4]";
                                 break;
                             }
-                        }else if (p.Value==Color.Green.ToString())
+                        }else if (p.Value==Color.Green)
                         {
                             int order = listPawn.IndexOf(pawn);
                             switch(order)
@@ -398,7 +398,7 @@ static public class Display
                                     _currentBoard[3,3] = "[4]";
                                 break;
                             }
-                        }else if (p.Value==Color.Blue.ToString())
+                        }else if (p.Value==Color.Blue)
                         {
                             int order = listPawn.IndexOf(pawn);
                             switch(order)
@@ -441,11 +441,11 @@ static public class Display
             }
         }
     }
-    static public string GetPawnColor(string color)
+    static public string GetPawnColor(Color color)
     {
-        if (color == Color.Blue.ToString()) return "[B]";
-        else if (color == Color.Yellow.ToString()) return "[Y]";
-        else if (color == Color.Red.ToString()) return "[R]";
+        if (color == Color.Blue) return "[B]";
+        else if (color == Color.Yellow) return "[Y]";
+        else if (color == Color.Red) return "[R]";
         else return "[G]"; //green
     }
 }

@@ -2,9 +2,9 @@ namespace LudoApp;
 public class Board
 {
     private List<int> _safeCells = new();
-    private Dictionary<string, int> _homeCells = new();
-    private Dictionary<string, int> _startCells = new();
-    public Board(List<int> safeCells, Dictionary<string, int> homeCells, Dictionary<string, int> startCells)
+    private Dictionary<Color, int> _homeCells = new();
+    private Dictionary<Color, int> _startCells = new();
+    public Board(List<int> safeCells, Dictionary<Color, int> homeCells, Dictionary<Color, int> startCells)
     {
         _safeCells = safeCells;
         _homeCells = homeCells;
@@ -18,19 +18,19 @@ public class Board
     {
         _safeCells = safeCells;
     }
-    public Dictionary<string, int> GetHomeCells()
+    public Dictionary<Color, int> GetHomeCells()
     {
         return _homeCells;
     }
-    public void SetHomeCells(string color, int cell)
+    public void SetHomeCells(Color color, int cell)
     {
         _homeCells.Add(color, cell);
     }
-    public Dictionary<string, int> GetStartCells()
+    public Dictionary<Color, int> GetStartCells()
     {
         return _startCells;
     }
-    public void SetStartCells(string color, int cell)
+    public void SetStartCells(Color color, int cell)
     {
         _startCells.Add(color, cell);
     }
