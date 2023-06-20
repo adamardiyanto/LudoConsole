@@ -57,7 +57,12 @@ public class Program
 
         //start the game
         _runner.StartGame();
-
+        List<IPlayer> winners = _runner.GetWinners();
+        Console.WriteLine("winner player : ");
+        foreach (IPlayer winner in winners)
+        {
+            Console.WriteLine(winner.Name); 
+        }
     }
     public static List<IPawn> CreatePawn()
     {

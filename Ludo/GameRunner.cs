@@ -6,6 +6,7 @@ public class GameRunner
     static private Dictionary<IPlayer, Color> _players;
     static private Dictionary<IPlayer, List<IPawn>> _pawns;
     private IPlayer _currentPlayer;
+    private List<IPlayer> _winPlayers;
     const int triangleCell = 58;
     const int endCell = 52;
     const int baseCell = 0;
@@ -104,6 +105,8 @@ public class GameRunner
             if (totalPawn == 4)
             {
                 finish++;
+                _winPlayers.Add(kvp.Key);
+                _players.Remove(kvp.Key);
             }
         }
         return finish == _players.Count - 1;
@@ -120,6 +123,10 @@ public class GameRunner
             }
         }
         return totalPawn;
+    }
+    public List<IPlayer> GetWinners()
+    {
+        return _winPlayers;
     }
     public void StartGame()
     {
