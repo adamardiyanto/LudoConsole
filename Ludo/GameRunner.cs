@@ -173,17 +173,7 @@ public class GameRunner
                     {
                         if (CheckIsSix(diceValue))
                         {
-                            Console.WriteLine("choose pawn out of base or move pawn");
-                            Console.WriteLine("press M to move pawn and press O to release pawn");
-                            if (Console.ReadKey().KeyChar == 'm')
-                            {
-                                MovePawn(_pawns[_currentPlayer].Find(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle  ), diceValue);
-                            }
-                            else
-                            {
-                                IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() is (int)Cell.Base);
-                                PawnToStart(p, _players[_currentPlayer]);
-                            }
+                            MoveOrOut(diceValue, CountPawnOutOfBase(_currentPlayer));
                         }
                         else
                         {
@@ -194,17 +184,7 @@ public class GameRunner
                     {
                         if (CheckIsSix(diceValue))
                         {
-                            Console.WriteLine("choose pawn out of base or move pawn");
-                            Console.WriteLine("press M to move pawn and press O to release pawn");
-                            if (Console.ReadKey().KeyChar == 'm')
-                            {
-                                SelectPawnToMove(diceValue);
-                            }
-                            else
-                            {
-                                IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() == (int)Cell.Base);
-                                PawnToStart(p, _players[_currentPlayer]);
-                            }
+                            MoveOrOut(diceValue, CountPawnOutOfBase(_currentPlayer));
                         }
                         else
                         {
@@ -223,6 +203,27 @@ public class GameRunner
                 } while (diceValue == 6);
 
             }
+        }
+    }
+
+    private void MoveOrOut(int diceValue, int pawnOutbase)
+    {
+        Console.WriteLine("choose pawn out of base or move pawn");
+        Console.WriteLine("press M to move pawn and press O to release pawn");
+        if (Console.ReadKey().KeyChar == 'm')
+        {
+            if(pawnOutbase == 1)
+            {
+                MovePawn(_pawns[_currentPlayer].Find(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle), diceValue);
+            }else
+            {
+                SelectPawnToMove(diceValue);
+            }
+        }
+        else
+        {
+            IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() is (int)Cell.Base);
+            PawnToStart(p, _players[_currentPlayer]);
         }
     }
 
