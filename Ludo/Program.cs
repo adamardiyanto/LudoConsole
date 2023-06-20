@@ -50,8 +50,7 @@ public class Program
         Console.WriteLine("Creating pawn...");
         foreach (var p in _playerList)
         {
-            _pawnList.Add(p.Key, CreatePawn());
-            Console.WriteLine(_pawnList[p.Key][0].GetPosition());
+            _pawnList.Add(p.Key, _runner.CreatePawn());
         }
         _runner.SetPawnList(_pawnList);
 
@@ -64,18 +63,7 @@ public class Program
             Console.WriteLine(winner.Name); 
         }
     }
-    public static List<IPawn> CreatePawn()
-    {
-        List<IPawn> pawnList = new List<IPawn>();
-        Pawn[] pawn = new Pawn[4];
-        for (int i = 0; i < 4; i++)
-        {
-            pawn[i] = new Pawn();
-            pawn[i].SetPosition(0);
-            pawnList.Add(pawn[i]);
-        }
-        return pawnList;
-    }
+    
     static bool ValidateNumPlayers()
     {
         if (int.TryParse(Console.ReadLine(), out numberOfPlayer))

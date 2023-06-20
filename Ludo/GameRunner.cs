@@ -128,6 +128,18 @@ public class GameRunner
     {
         return _winPlayers;
     }
+    public List<IPawn> CreatePawn()
+    {
+        List<IPawn> pawnList = new List<IPawn>();
+        Pawn[] pawn = new Pawn[4];
+        for (int i = 0; i < 4; i++)
+        {
+            pawn[i] = new Pawn();
+            pawn[i].SetPosition(0);
+            pawnList.Add(pawn[i]);
+        }
+        return pawnList;
+    }
     public void StartGame()
     {
         if (_board == null)
