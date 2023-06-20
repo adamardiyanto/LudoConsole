@@ -2,37 +2,41 @@
 
 public class Program
 {
-    static List<int> _safeCell = new List<int>(){1,9,14, 22, 27, 35, 40, 48};
+    static List<int> _safeCell = new List<int>() { 1, 9, 14, 22, 27, 35, 40, 48 };
     static private Dictionary<string, int> _startCell = new Dictionary<string, int>();
-    static private  Dictionary<string, int> _homeCell = new Dictionary<string, int>();
-    static private Dictionary<IPlayer, string> _playerList= new Dictionary<IPlayer,string>();
-    static private Dictionary<IPlayer, List<IPawn>> _pawnList= new Dictionary<IPlayer,List<IPawn>>();
+    static private Dictionary<string, int> _homeCell = new Dictionary<string, int>();
+    static private Dictionary<IPlayer, string> _playerList = new Dictionary<IPlayer, string>();
+    static private Dictionary<IPlayer, List<IPawn>> _pawnList = new Dictionary<IPlayer, List<IPawn>>();
     static private Board _board;
-     static GameRunner _runner;
+    static GameRunner _runner;
     static Player[] player = new Player[4];
     static List<IPlayer> tempListPlayer = new List<IPlayer>();
+    static int numberOfPlayer = 0;
 
     public static void Main(string[] args)
     {
-        _startCell.Add(Color.Red.ToString(),1);
-        _startCell.Add(Color.Green.ToString(),14);
-        _startCell.Add(Color.Blue.ToString(),27);
-        _startCell.Add(Color.Yellow.ToString(),40);
+        _startCell.Add(Color.Red.ToString(), 1);
+        _startCell.Add(Color.Green.ToString(), 14);
+        _startCell.Add(Color.Blue.ToString(), 27);
+        _startCell.Add(Color.Yellow.ToString(), 40);
 
-        _homeCell.Add(Color.Red.ToString(),51);
-        _homeCell.Add(Color.Green.ToString(),12);
-        _homeCell.Add(Color.Blue.ToString(),25);
-        _homeCell.Add(Color.Yellow.ToString(),38);
+        _homeCell.Add(Color.Red.ToString(), 51);
+        _homeCell.Add(Color.Green.ToString(), 12);
+        _homeCell.Add(Color.Blue.ToString(), 25);
+        _homeCell.Add(Color.Yellow.ToString(), 38);
 
         _board = new Board(_safeCell, _homeCell, _startCell); //create a new board
 
         Console.WriteLine("welcome to Ludo Console");
         Console.WriteLine("enter number of player : ");
-        _ = Int32.TryParse(Console.ReadLine(), out int numberOfPlayer);
-        //create player
-        for(int i = 0; i < numberOfPlayer; i++)
+        while (!ValidateNumPlayers())
         {
-            Console.WriteLine("player {0} please enter your name : ",i+1);
+            Console.WriteLine("Invalid input or number out of range");
+        }
+        //create player
+        for (int i = 0; i < numberOfPlayer; i++)
+        {
+            Console.WriteLine("player {0} please enter your name : ", i + 1);
             string? name = Console.ReadLine();
             player[i] = new Player(i, name);
             //tempListPlayer.Add(player[i]);
@@ -59,7 +63,7 @@ public class Program
     {
         List<IPawn> pawnList = new List<IPawn>();
         Pawn[] pawn = new Pawn[4];
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             pawn[i] = new Pawn();
             pawn[i].SetPlayer(player);
@@ -67,5 +71,16 @@ public class Program
             pawnList.Add(pawn[i]);
         }
         return pawnList;
+    }
+    static bool ValidateNumPlayers()
+    {
+        if (int.TryParse(Console.ReadLine(), out numberOfPlayer))
+        {
+            return numberOfPlayer > 1 && numberOfPlayer <= 4;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
