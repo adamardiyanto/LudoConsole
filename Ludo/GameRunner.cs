@@ -247,7 +247,7 @@ public class GameRunner
         List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle);
         foreach (IPawn p in listPawns)
         {
-            Console.WriteLine("pawn with position " + p.GetPosition());
+            Console.WriteLine((listPawns.IndexOf(p)+1) + ". pawn with position " + p.GetPosition());
         }
         Console.WriteLine("select pawn to move");
         Console.WriteLine("enter number based on pawn order");
