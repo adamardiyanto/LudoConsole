@@ -51,7 +51,7 @@ public class GameRunner
         int position = pawn.GetPosition();
         if (step > 0)
         {
-            if (step + position <= (int)Cell.Triangle )
+            if (step + position <= (int)Cell.Triangle)
             {
                 if (position == _board.GetHomeCells()[_players[_currentPlayer]])
                 {
@@ -59,7 +59,7 @@ public class GameRunner
                     pawn.SetPosition(53);
                     MovePawn(pawn, step - 2);
                 }
-                else if (position == (int)Cell.End  )
+                else if (position == (int)Cell.End)
                 {
                     pawn.SetPosition(1); //restart position to 1
                 }
@@ -97,7 +97,7 @@ public class GameRunner
         foreach (var kvp in _players)
         {
             List<IPawn> listIPawn = _pawns[kvp.Key];
-            int totalPawn = listIPawn.Count(x => x.GetPosition() == (int)Cell.Triangle  );
+            int totalPawn = listIPawn.Count(x => x.GetPosition() == (int)Cell.Triangle);
             if (totalPawn == 4)
             {
                 finish++;
@@ -113,7 +113,7 @@ public class GameRunner
         int totalPawn = 0;
         foreach (var kvp in _pawns[player])
         {
-            if (kvp.GetPosition() > (int)Cell.Base  && kvp.GetPosition() < (int)Cell.Triangle  )
+            if (kvp.GetPosition() > (int)Cell.Base && kvp.GetPosition() < (int)Cell.Triangle)
             {
                 totalPawn++;
             }
@@ -177,7 +177,7 @@ public class GameRunner
                         }
                         else
                         {
-                            MovePawn(_pawns[_currentPlayer].Find(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle  ), diceValue);
+                            MovePawn(_pawns[_currentPlayer].Find(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle), diceValue);
                         }
                     }
                     else if (CountPawnOutOfBase(_currentPlayer) < 4)
@@ -188,7 +188,7 @@ public class GameRunner
                         }
                         else
                         {
-                           SelectPawnToMove(diceValue);
+                            SelectPawnToMove(diceValue);
                         }
 
                     }
@@ -210,21 +210,35 @@ public class GameRunner
     {
         Console.WriteLine("choose pawn out of base or move pawn");
         Console.WriteLine("press M to move pawn and press O to release pawn");
-        if (Console.ReadKey().KeyChar == 'm')
+
+        while (true)
         {
-            if(pawnOutbase == 1)
+            string input =Console.ReadLine();
+            if (input == "m" || input == "M")
             {
-                MovePawn(_pawns[_currentPlayer].Find(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle), diceValue);
-            }else
+                if (pawnOutbase == 1)
+                {
+                    MovePawn(_pawns[_currentPlayer].Find(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle), diceValue);
+                    break;
+                }
+                else
+                {
+                    SelectPawnToMove(diceValue);
+                    break;
+                }
+            }
+            else if (input == "o" || input == "O")
             {
-                SelectPawnToMove(diceValue);
+                IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() is (int)Cell.Base);
+                PawnToStart(p, _players[_currentPlayer]);
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Invalid input");
             }
         }
-        else
-        {
-            IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() is (int)Cell.Base);
-            PawnToStart(p, _players[_currentPlayer]);
-        }
+
     }
 
     private void SelectPawnToMove(int diceValue)
