@@ -56,11 +56,11 @@ public class GameRunner
         {
             if (step + position <= triangleCell)
             {
-                if (position == _board.GetHomeCells()[_players[pawn.GetPlayer()]])
+                if (position == _board.GetHomeCells()[_players[_currentPlayer]])
                 {
                     // move to colored cell
                     pawn.SetPosition(53);
-                    MovePawn(pawn, step - 1);
+                    MovePawn(pawn, step - 2);
                 }
                 else if (position == endCell )
                 {
@@ -80,7 +80,7 @@ public class GameRunner
         foreach (var kvp in _players)
         {
             // check if it is not the same pawn and not in safe cell
-            if (kvp.Key != pawn.GetPlayer() && !CheckIsSafeCell(pawn.GetPosition()))
+            if (kvp.Key != _currentPlayer && !CheckIsSafeCell(pawn.GetPosition()))
             {
                 List<IPawn> listIPawn = _pawns[kvp.Key];
                 foreach (var p in listIPawn)

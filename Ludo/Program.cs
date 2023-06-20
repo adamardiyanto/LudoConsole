@@ -50,7 +50,7 @@ public class Program
         Console.WriteLine("Creating pawn...");
         foreach (var p in _playerList)
         {
-            _pawnList.Add(p.Key, CreatePawn(p.Key));
+            _pawnList.Add(p.Key, CreatePawn());
             Console.WriteLine(_pawnList[p.Key][0].GetPosition());
         }
         _runner.SetPawnList(_pawnList);
@@ -59,14 +59,13 @@ public class Program
         _runner.StartGame();
 
     }
-    public static List<IPawn> CreatePawn(IPlayer player)
+    public static List<IPawn> CreatePawn()
     {
         List<IPawn> pawnList = new List<IPawn>();
         Pawn[] pawn = new Pawn[4];
         for (int i = 0; i < 4; i++)
         {
             pawn[i] = new Pawn();
-            pawn[i].SetPlayer(player);
             pawn[i].SetPosition(0);
             pawnList.Add(pawn[i]);
         }
