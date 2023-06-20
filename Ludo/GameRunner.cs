@@ -7,10 +7,6 @@ public class GameRunner
     static private Dictionary<IPlayer, List<IPawn>> _pawns;
     private IPlayer _currentPlayer;
     private List<IPlayer> _winPlayers;
-    const int triangleCell = 58;
-    const int endCell = 52;
-    const int baseCell = 0;
-
     public GameRunner(Board board, Dictionary<IPlayer, Color> players)
     {
         _board = board;
@@ -48,14 +44,14 @@ public class GameRunner
     }
     public void PawnToBase(IPawn pawn)
     {
-        pawn.SetPosition(baseCell); // set pawn position to 0 or to base
+        pawn.SetPosition((int)Cell.Base); // set pawn position to 0 or to base
     }
     public void MovePawn(IPawn pawn, int step)
     {
         int position = pawn.GetPosition();
         if (step > 0)
         {
-            if (step + position <= triangleCell)
+            if (step + position <= (int)Cell.Triangle )
             {
                 if (position == _board.GetHomeCells()[_players[_currentPlayer]])
                 {
@@ -63,7 +59,7 @@ public class GameRunner
                     pawn.SetPosition(53);
                     MovePawn(pawn, step - 2);
                 }
-                else if (position == endCell )
+                else if (position == (int)Cell.End  )
                 {
                     pawn.SetPosition(1); //restart position to 1
                 }
@@ -101,7 +97,7 @@ public class GameRunner
         foreach (var kvp in _players)
         {
             List<IPawn> listIPawn = _pawns[kvp.Key];
-            int totalPawn = listIPawn.Count(x => x.GetPosition() == triangleCell );
+            int totalPawn = listIPawn.Count(x => x.GetPosition() == (int)Cell.Triangle  );
             if (totalPawn == 4)
             {
                 finish++;
@@ -117,7 +113,7 @@ public class GameRunner
         int totalPawn = 0;
         foreach (var kvp in _pawns[player])
         {
-            if (kvp.GetPosition() > baseCell && kvp.GetPosition() < triangleCell )
+            if (kvp.GetPosition() > (int)Cell.Base  && kvp.GetPosition() < (int)Cell.Triangle  )
             {
                 totalPawn++;
             }
@@ -181,18 +177,18 @@ public class GameRunner
                             Console.WriteLine("press M to move pawn and press O to release pawn");
                             if (Console.ReadKey().KeyChar == 'm')
                             {
-                                IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() > baseCell && x.GetPosition() < triangleCell );
+                                IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle  );
                                 MovePawn(p, diceValue);
                             }
                             else
                             {
-                                IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() is baseCell);
+                                IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() is (int)Cell.Base);
                                 PawnToStart(p, _players[_currentPlayer]);
                             }
                         }
                         else
                         {
-                            IPawn p = _pawns[_currentPlayer].Find(x =>  x.GetPosition() > baseCell && x.GetPosition() < triangleCell);
+                            IPawn p = _pawns[_currentPlayer].Find(x =>  x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle);
                             MovePawn(p, diceValue);
                         }
                     }
@@ -205,7 +201,7 @@ public class GameRunner
                             if (Console.ReadKey().KeyChar == 'm')
                             {
                                 // select pawn to move
-                                List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(x =>  x.GetPosition() > baseCell && x.GetPosition() < triangleCell);
+                                List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(x =>  x.GetPosition() > (int)Cell.Base && x.GetPosition() <  (int)Cell.Triangle);
                                 foreach (IPawn p in listPawns)
                                 {
                                     Console.WriteLine("pawn with position " + p.GetPosition());
@@ -218,14 +214,14 @@ public class GameRunner
                             }
                             else
                             {
-                                IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() == baseCell);
+                                IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() == (int)Cell.Base);
                                 PawnToStart(p, _players[_currentPlayer]);
                             }
                         }
                         else
                         {
                             // select pawn to move
-                            List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(x =>  x.GetPosition() > baseCell && x.GetPosition() < triangleCell);
+                            List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(x =>  x.GetPosition() > (int)Cell.Base && x.GetPosition() <  (int)Cell.Triangle);
                             foreach (IPawn p in listPawns)
                             {
                                 Console.WriteLine("pawn with position " + p.GetPosition());
@@ -241,7 +237,7 @@ public class GameRunner
                     else
                     {
                         // select pawn to move
-                        List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(x =>  x.GetPosition() > baseCell && x.GetPosition() < triangleCell);
+                        List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(x =>  x.GetPosition() > (int)Cell.Base && x.GetPosition() <  (int)Cell.Triangle);
                         foreach (IPawn p in listPawns)
                         {
                             Console.WriteLine("pawn with position " + p.GetPosition());
