@@ -7,6 +7,7 @@ public class GameRunner
     static private Dictionary<IPlayer, List<IPawn>> _pawns;
     private IPlayer _currentPlayer;
     private List<IPlayer> _winPlayers;
+    private int _numPawn;
     public GameRunner(Board board, Dictionary<IPlayer, Color> players)
     {
         _board = board;
@@ -213,7 +214,7 @@ public class GameRunner
 
         while (true)
         {
-            string input =Console.ReadLine();
+            string input = Console.ReadLine();
             if (input == "m" || input == "M")
             {
                 if (pawnOutbase == 1)
@@ -247,12 +248,26 @@ public class GameRunner
         List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle);
         foreach (IPawn p in listPawns)
         {
-            Console.WriteLine((listPawns.IndexOf(p)+1) + ". pawn with position " + p.GetPosition());
+            Console.WriteLine((listPawns.IndexOf(p) + 1) + ". pawn with position " + p.GetPosition());
         }
         Console.WriteLine("select pawn to move");
         Console.WriteLine("enter number based on pawn order");
-        _ = int.TryParse(Console.ReadLine(), out int number);
+        while (!ValidatePawn(listPawns.Count()))
+        {
+            Console.WriteLine("Invalid input or number out of range");
+        }
         // next should add condition if out of bound
-        MovePawn(listPawns[number - 1], diceValue);
+        MovePawn(listPawns[_numPawn - 1], diceValue);
+    }
+    private bool ValidatePawn(int totalPawn)
+    {
+        if (int.TryParse(Console.ReadLine(), out _numPawn))
+        {
+            return _numPawn > 0 && _numPawn <= totalPawn;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
