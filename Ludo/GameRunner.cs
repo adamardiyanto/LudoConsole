@@ -8,15 +8,15 @@ public class GameRunner
     private IPlayer _currentPlayer;
     private List<IPlayer> _winPlayers;
     private int _numPawn;
+    //create instance for delegate
+    DelegateClear clearBoard = Display.ClearBoard;
+    DelegateUpdate updateBoard = Display.UpdateBoard;
+    DelegateShow showBoard = Display.ShowBoard;
     public GameRunner(Board board, Dictionary<IPlayer, Color> players)
     {
         _board = board;
         _players = players;
     }
-    //create instance for delegate
-    DelegateClear clearBoard = Display.ClearBoard;
-    DelegateUpdate updateBoard = Display.UpdateBoard;
-    DelegateShow showBoard = Display.ShowBoard;
     public void SetPawnList(Dictionary<IPlayer, List<IPawn>> pawnList)
     {
         _pawns = pawnList;
