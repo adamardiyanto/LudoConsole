@@ -139,14 +139,6 @@ public class GameRunner
     }
     public void StartGame()
     {
-        if (_board == null)
-        {
-            return;
-        }
-        if (_pawns == null)
-        {
-            return;
-        }
         clearBoard();
         updateBoard(_pawns, _players);
         showBoard();
@@ -239,7 +231,6 @@ public class GameRunner
                 Console.WriteLine("Invalid input");
             }
         }
-
     }
 
     private void SelectPawnToMove(int diceValue)
@@ -252,7 +243,7 @@ public class GameRunner
         }
         Console.WriteLine("select pawn to move");
         Console.WriteLine("enter number based on pawn order");
-        while (!ValidatePawn(listPawns.Count()))
+        while (!ValidatePawn(listPawns.Count))
         {
             Console.WriteLine("Invalid input or number out of range");
         }

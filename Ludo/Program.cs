@@ -63,7 +63,6 @@ public class Program
             Console.WriteLine(winner.Name); 
         }
     }
-    
     static bool ValidateNumPlayers()
     {
         if (int.TryParse(Console.ReadLine(), out numberOfPlayer))
