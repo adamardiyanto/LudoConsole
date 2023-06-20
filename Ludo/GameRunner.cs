@@ -177,8 +177,7 @@ public class GameRunner
                             Console.WriteLine("press M to move pawn and press O to release pawn");
                             if (Console.ReadKey().KeyChar == 'm')
                             {
-                                IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle  );
-                                MovePawn(p, diceValue);
+                                MovePawn(_pawns[_currentPlayer].Find(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle  ), diceValue);
                             }
                             else
                             {
@@ -188,8 +187,7 @@ public class GameRunner
                         }
                         else
                         {
-                            IPawn p = _pawns[_currentPlayer].Find(x =>  x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle);
-                            MovePawn(p, diceValue);
+                            MovePawn(_pawns[_currentPlayer].Find(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle  ), diceValue);
                         }
                     }
                     else if (CountPawnOutOfBase(_currentPlayer) < 4)
@@ -200,17 +198,7 @@ public class GameRunner
                             Console.WriteLine("press M to move pawn and press O to release pawn");
                             if (Console.ReadKey().KeyChar == 'm')
                             {
-                                // select pawn to move
-                                List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(x =>  x.GetPosition() > (int)Cell.Base && x.GetPosition() <  (int)Cell.Triangle);
-                                foreach (IPawn p in listPawns)
-                                {
-                                    Console.WriteLine("pawn with position " + p.GetPosition());
-                                }
-                                Console.WriteLine("select pawn to move");
-                                Console.WriteLine("enter number based on pawn order");
-                                _ = int.TryParse(Console.ReadLine(), out int number);
-                                // next should add condition if out of bound
-                                MovePawn(listPawns[number - 1], diceValue);
+                                SelectPawnToMove(diceValue);
                             }
                             else
                             {
@@ -220,33 +208,13 @@ public class GameRunner
                         }
                         else
                         {
-                            // select pawn to move
-                            List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(x =>  x.GetPosition() > (int)Cell.Base && x.GetPosition() <  (int)Cell.Triangle);
-                            foreach (IPawn p in listPawns)
-                            {
-                                Console.WriteLine("pawn with position " + p.GetPosition());
-                            }
-                            Console.WriteLine("select pawn to move");
-                            Console.WriteLine("enter number based on pawn order");
-                            _ = int.TryParse(Console.ReadLine(), out int number);
-                            // next should add condition if out of bound
-                            MovePawn(listPawns[number - 1], diceValue);
+                           SelectPawnToMove(diceValue);
                         }
 
                     }
                     else
                     {
-                        // select pawn to move
-                        List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(x =>  x.GetPosition() > (int)Cell.Base && x.GetPosition() <  (int)Cell.Triangle);
-                        foreach (IPawn p in listPawns)
-                        {
-                            Console.WriteLine("pawn with position " + p.GetPosition());
-                        }
-                        Console.WriteLine("select pawn to move");
-                        Console.WriteLine("enter number based on pawn order");
-                        _ = int.TryParse(Console.ReadLine(), out int number);
-                        // next should add condition if out of bound
-                        MovePawn(listPawns[number - 1], diceValue);
+                        SelectPawnToMove(diceValue);
 
                     }
                     clearBoard();
@@ -256,5 +224,20 @@ public class GameRunner
 
             }
         }
+    }
+
+    private void SelectPawnToMove(int diceValue)
+    {
+        // select pawn to move
+        List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle);
+        foreach (IPawn p in listPawns)
+        {
+            Console.WriteLine("pawn with position " + p.GetPosition());
+        }
+        Console.WriteLine("select pawn to move");
+        Console.WriteLine("enter number based on pawn order");
+        _ = int.TryParse(Console.ReadLine(), out int number);
+        // next should add condition if out of bound
+        MovePawn(listPawns[number - 1], diceValue);
     }
 }
