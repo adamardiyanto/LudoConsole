@@ -1,6 +1,6 @@
 ﻿namespace LudoApp;
 
-public class Program
+public partial class Program
 {
     static List<int> _safeCell = new List<int>() { 1, 9, 14, 22, 27, 35, 40, 48 };
     static private Dictionary<Color, int> _startCell = new Dictionary<Color, int>();
@@ -12,66 +12,18 @@ public class Program
     static Player[] player = new Player[4];
     static List<IPlayer> tempListPlayer = new List<IPlayer>();
     static int numberOfPlayer = 0;
+    static private int _numPawn;
 
     public static void Main(string[] args)
     {
-        _startCell.Add(Color.Red, 1);
-        _startCell.Add(Color.Green, 14);
-        _startCell.Add(Color.Blue, 27);
-        _startCell.Add(Color.Yellow, 40);
-
-        _homeCell.Add(Color.Red, 51);
-        _homeCell.Add(Color.Green, 12);
-        _homeCell.Add(Color.Blue, 25);
-        _homeCell.Add(Color.Yellow, 38);
-
-        _board = new Board(_safeCell, _homeCell, _startCell); //create a new board
-
+        CreateBoard(); //create a new board
         Console.WriteLine("welcome to Ludo Console");
-        Console.WriteLine("enter number of player : ");
-        while (!ValidateNumPlayers())
-        {
-            Console.WriteLine("Invalid input or number out of range");
-        }
-        //create player
-        for (int i = 0; i < numberOfPlayer; i++)
-        {
-            Console.WriteLine("player {0} please enter your name : ", i + 1);
-            string? name = Console.ReadLine();
-            player[i] = new Player(i, name);
-            //tempListPlayer.Add(player[i]);
-            //temporary direct asign order and color
-            _playerList.Add(player[i], (Color)i); // add player to list
-        }
-        //create GameRunner
-        Console.WriteLine("creating GameRunner...");
-        _runner = new GameRunner(_board, _playerList);
-        //create pawn
-        Console.WriteLine("Creating pawn...");
-        foreach (var p in _playerList)
-        {
-            _pawnList.Add(p.Key, _runner.CreatePawn());
-        }
-        _runner.SetPawnList(_pawnList);
+        CreatePlayer();
+        _runner = new GameRunner(_board, _playerList);//create GameRunner
+        CreatePawn();//create pawn
+        StartGame();//start the game
+        EndGame();
+    }
 
-        //start the game
-        _runner.StartGame();
-        List<IPlayer> winners = _runner.GetWinners();
-        Console.WriteLine("winner player : ");
-        foreach (IPlayer winner in winners)
-        {
-            Console.WriteLine(winner.Name); 
-        }
-    }
-    static bool ValidateNumPlayers()
-    {
-        if (int.TryParse(Console.ReadLine(), out numberOfPlayer))
-        {
-            return numberOfPlayer > 1 && numberOfPlayer <= 4;
-        }
-        else
-        {
-            return false;
-        }
-    }
+
 }

@@ -7,11 +7,11 @@ public class GameRunner
     static private Dictionary<IPlayer, List<IPawn>> _pawns;
     private IPlayer _currentPlayer;
     private List<IPlayer> _winPlayers;
-    private int _numPawn;
+
     //create instance for delegate
-    DelegateClear clearBoard = Display.ClearBoard;
-    DelegateUpdate updateBoard = Display.UpdateBoard;
-    DelegateShow showBoard = Display.ShowBoard;
+    public DelegateClear clearBoard = Display.ClearBoard;
+    public DelegateUpdate updateBoard = Display.UpdateBoard;
+    public DelegateShow showBoard = Display.ShowBoard;
     public GameRunner(Board board, Dictionary<IPlayer, Color> players)
     {
         _board = board;
@@ -21,9 +21,21 @@ public class GameRunner
     {
         _pawns = pawnList;
     }
-    public void AddPlayer(IPlayer player, Color color)
+    public Dictionary<IPlayer, List<IPawn>> GetPawnList()
     {
-        _players.Add(player, color); // add player
+        return _pawns;
+    }
+    public IPlayer GetCurrentPlayer()
+    {
+        return _currentPlayer;
+    }
+    public void SetCurrentPlayer(IPlayer currentPlayer)
+    {
+        _currentPlayer = currentPlayer;
+    }
+    public Dictionary<IPlayer, Color> GetPlayerList()
+    {
+        return _players;
     }
     public int RollDice()
     {
@@ -125,140 +137,6 @@ public class GameRunner
     {
         return _winPlayers;
     }
-    public List<IPawn> CreatePawn()
-    {
-        List<IPawn> pawnList = new List<IPawn>();
-        Pawn[] pawn = new Pawn[4];
-        for (int i = 0; i < 4; i++)
-        {
-            pawn[i] = new Pawn();
-            pawn[i].SetPosition(0);
-            pawnList.Add(pawn[i]);
-        }
-        return pawnList;
-    }
-    public void StartGame()
-    {
-        clearBoard();
-        updateBoard(_pawns, _players);
-        showBoard();
-        while (!CheckEndGame())
-        {
-            foreach (var player in _players) // looping each player
-            {
-                _currentPlayer = player.Key;
-                int diceValue = 0;
-                do // looping if player get 6
-                {
-                    Console.WriteLine(player.Key.Name.ToUpper() + " press enter to roll dice");
-                    Console.ReadLine();
-                    diceValue = RollDice();
-                    Console.WriteLine(diceValue);
-                    Console.ReadLine();
-                    if (CountPawnOutOfBase(_currentPlayer) is 0) // there are no pawn out of base
-                    {
-                        if (CheckIsSix(diceValue))
-                        {
-                            PawnToStart(_pawns[_currentPlayer][0], _players[_currentPlayer]);
-                        }
-                    }
-                    else if (CountPawnOutOfBase(_currentPlayer) is 1) // if there is a pawn out of base
-                    {
-                        if (CheckIsSix(diceValue))
-                        {
-                            MoveOrOut(diceValue, CountPawnOutOfBase(_currentPlayer));
-                        }
-                        else
-                        {
-                            MovePawn(_pawns[_currentPlayer].Find(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle), diceValue);
-                        }
-                    }
-                    else if (CountPawnOutOfBase(_currentPlayer) < 4)
-                    {
-                        if (CheckIsSix(diceValue))
-                        {
-                            MoveOrOut(diceValue, CountPawnOutOfBase(_currentPlayer));
-                        }
-                        else
-                        {
-                            SelectPawnToMove(diceValue);
-                        }
 
-                    }
-                    else
-                    {
-                        SelectPawnToMove(diceValue);
-
-                    }
-                    clearBoard();
-                    updateBoard(_pawns, _players);
-                    showBoard();
-                } while (diceValue == 6);
-
-            }
-        }
-    }
-
-    private void MoveOrOut(int diceValue, int pawnOutbase)
-    {
-        Console.WriteLine("choose pawn out of base or move pawn");
-        Console.WriteLine("press M to move pawn and press O to release pawn");
-
-        while (true)
-        {
-            string input = Console.ReadLine();
-            if (input == "m" || input == "M")
-            {
-                if (pawnOutbase == 1)
-                {
-                    MovePawn(_pawns[_currentPlayer].Find(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle), diceValue);
-                    break;
-                }
-                else
-                {
-                    SelectPawnToMove(diceValue);
-                    break;
-                }
-            }
-            else if (input == "o" || input == "O")
-            {
-                IPawn p = _pawns[_currentPlayer].Find(x => x.GetPosition() is (int)Cell.Base);
-                PawnToStart(p, _players[_currentPlayer]);
-                break;
-            }
-            else
-            {
-                Console.WriteLine("Invalid input");
-            }
-        }
-    }
-
-    private void SelectPawnToMove(int diceValue)
-    {
-        // select pawn to move
-        List<IPawn> listPawns = _pawns[_currentPlayer].FindAll(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle);
-        foreach (IPawn p in listPawns)
-        {
-            Console.WriteLine((listPawns.IndexOf(p) + 1) + ". pawn with position " + p.GetPosition());
-        }
-        Console.WriteLine("select pawn to move");
-        Console.WriteLine("enter number based on pawn order");
-        while (!ValidatePawn(listPawns.Count))
-        {
-            Console.WriteLine("Invalid input or number out of range");
-        }
-        // next should add condition if out of bound
-        MovePawn(listPawns[_numPawn - 1], diceValue);
-    }
-    private bool ValidatePawn(int totalPawn)
-    {
-        if (int.TryParse(Console.ReadLine(), out _numPawn))
-        {
-            return _numPawn > 0 && _numPawn <= totalPawn;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    
 }
