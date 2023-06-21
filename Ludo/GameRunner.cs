@@ -2,7 +2,7 @@ namespace LudoApp;
 public class GameRunner
 {
     private Board _board;
-    private IDice dice = new Dice();
+    private IDice dice = new Dice(6);
     static private Dictionary<IPlayer, Color> _players;
     static private Dictionary<IPlayer, List<IPawn>> _pawns;
     private IPlayer _currentPlayer;
