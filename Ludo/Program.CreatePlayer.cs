@@ -20,7 +20,7 @@ public partial class Program
         }
     }
 
-    static bool ValidateNumPlayers()
+    public static bool ValidateNumPlayers()
     {
         if (int.TryParse(Console.ReadLine(), out numberOfPlayer))
         {

@@ -2,16 +2,15 @@ namespace LudoApp;
 public class GameRunner
 {
     private Board _board;
-    private IDice dice = new Dice(6);
+    private IDice dice = new Dice(6); //
     static private Dictionary<IPlayer, Color> _players;
     static private Dictionary<IPlayer, List<IPawn>> _pawns;
     private IPlayer _currentPlayer;
     private List<IPlayer> _winPlayers;
-
     //create instance for delegate
-    public DelegateClear clearBoard = Display.ClearBoard;
-    public DelegateUpdate updateBoard = Display.UpdateBoard;
-    public DelegateShow showBoard = Display.ShowBoard;
+    public DelegateClear clearBoard = Display.ClearBoard; //
+    public DelegateUpdate updateBoard = Display.UpdateBoard; //
+    public DelegateShow showBoard = Display.ShowBoard; //
     public GameRunner(Board board, Dictionary<IPlayer, Color> players)
     {
         _board = board;
