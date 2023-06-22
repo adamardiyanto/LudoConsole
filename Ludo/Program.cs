@@ -13,13 +13,14 @@ public partial class Program
     static List<IPlayer> tempListPlayer = new List<IPlayer>();
     static int numberOfPlayer = 0;
     static private int _numPawn;
+    static int sideDice = 6;
 
     public static void Main(string[] args)
     {
         CreateBoard(); //create a new board
         Console.WriteLine("welcome to Ludo Console");
         CreatePlayer();
-        _runner = new GameRunner(_board, _playerList);//create GameRunner
+        _runner = new GameRunner(_board, _playerList, sideDice);//create GameRunner
         CreatePawn();//create pawn
         StartGame();//start the game
         EndGame();

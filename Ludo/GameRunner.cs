@@ -2,7 +2,7 @@ namespace LudoApp;
 public class GameRunner
 {
     private Board _board;
-    private IDice dice = new Dice(6); //
+    private IDice dice; //
     static private Dictionary<IPlayer, Color> _players;
     static private Dictionary<IPlayer, List<IPawn>> _pawns;
     private IPlayer _currentPlayer;
@@ -11,10 +11,11 @@ public class GameRunner
     public DelegateClear clearBoard = Display.ClearBoard; //
     public DelegateUpdate updateBoard = Display.UpdateBoard; //
     public DelegateShow showBoard = Display.ShowBoard; //
-    public GameRunner(Board board, Dictionary<IPlayer, Color> players)
+    public GameRunner(Board board, Dictionary<IPlayer, Color> players, int sideDice)
     {
         _board = board;
         _players = players;
+        dice = new Dice(sideDice);
     }
     public void SetPawnList(Dictionary<IPlayer, List<IPawn>> pawnList)
     {
