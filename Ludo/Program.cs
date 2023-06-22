@@ -1,4 +1,6 @@
 ﻿namespace LudoApp;
+using log4net;
+using log4net.Config;
 
 public partial class Program
 {
@@ -14,13 +16,15 @@ public partial class Program
     static int numberOfPlayer = 0;
     static private int _numPawn;
     static int sideDice = 6;
-
+    private static readonly ILog log = LogManager.GetLogger(typeof(Program));
     public static void Main(string[] args)
     {
+        XmlConfigurator.Configure(new FileInfo("log4net.config"));
         CreateBoard(); //create a new board
         Console.WriteLine("welcome to Ludo Console");
         CreatePlayer();
         _runner = new GameRunner(_board, _playerList, sideDice);//create GameRunner
+        log.Info("Instance of GameRunner is created");
         CreatePawn();//create pawn
         StartGame();//start the game
         EndGame();

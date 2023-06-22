@@ -6,17 +6,20 @@ public partial class Program
         _runner.clearBoard();
         _runner.updateBoard(_runner.GetPawnList(), _runner.GetPlayerList());
         _runner.showBoard();
+        log.Info("Game started");
         while (!_runner.CheckEndGame())
         {
             foreach (var player in _runner.GetPlayerList()) // looping each player
             {
                 _runner.SetCurrentPlayer(player.Key);
+                log.Info($"Turn for Player {player.Key.Name}");
                 int diceValue = 0;
                 do // looping if player get 6
                 {
                     Console.WriteLine(player.Key.Name.ToUpper() + " press enter to roll dice");
                     Console.ReadLine();
                     diceValue = _runner.RollDice();
+                    log.Info($"Player {player.Key.Name} roll dice: {diceValue}");
                     Console.WriteLine(diceValue);
                     Console.ReadLine();
                     if (_runner.CountPawnOutOfBase(_runner.GetCurrentPlayer()) is 0) // there are no pawn out of base
@@ -24,6 +27,7 @@ public partial class Program
                         if (_runner.CheckIsSix(diceValue))
                         {
                             _runner.PawnToStart(_runner.GetPawnList()[_runner.GetCurrentPlayer()][0], _runner.GetPlayerList()[_runner.GetCurrentPlayer()]);
+                            log.Info("pawn out of base");
                         }
                     }
                     else if (_runner.CountPawnOutOfBase(_runner.GetCurrentPlayer()) is 1) // if there is a pawn out of base
@@ -76,6 +80,7 @@ public partial class Program
                 if (pawnOutbase == 1)
                 {
                     _runner.MovePawn(_runner.GetPawnList()[_runner.GetCurrentPlayer()].Find(x => x.GetPosition() > (int)Cell.Base && x.GetPosition() < (int)Cell.Triangle), diceValue);
+                    log.Info("pawn moved");
                     break;
                 }
                 else
@@ -88,6 +93,7 @@ public partial class Program
             {
                 IPawn p = _runner.GetPawnList()[_runner.GetCurrentPlayer()].Find(x => x.GetPosition() is (int)Cell.Base);
                 _runner.PawnToStart(p, _runner.GetPlayerList()[_runner.GetCurrentPlayer()]);
+                log.Info("pawn out of base");
                 break;
             }
             else
@@ -113,6 +119,7 @@ public partial class Program
         }
         // next should add condition if out of bound
         _runner.MovePawn(listPawns[_numPawn - 1], diceValue);
+        log.Info("pawn moved");
     }
     static private bool ValidatePawn(int totalPawn)
     {

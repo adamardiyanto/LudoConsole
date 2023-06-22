@@ -17,7 +17,9 @@ public partial class Program
             //tempListPlayer.Add(player[i]);
             //temporary direct asign order and color
             _playerList.Add(player[i], (Color)i); // add player to list
+            log.Info($"player {player[i].Name} with color {(Color)i} added to list");
         }
+        log.Info("player list complete");
     }
 
     public static bool ValidateNumPlayers()

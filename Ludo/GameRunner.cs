@@ -1,4 +1,5 @@
 namespace LudoApp;
+
 public class GameRunner
 {
     private Board _board;

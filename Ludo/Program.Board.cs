@@ -14,5 +14,6 @@ public partial class Program
         _homeCell.Add(Color.Yellow, 38);
 
         _board = new Board(_safeCell, _homeCell, _startCell);
+        log.Info("Board has been created");
     }
 }

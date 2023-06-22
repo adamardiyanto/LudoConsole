@@ -6,8 +6,10 @@ public partial class Program
         foreach (var p in _playerList)
         {
             _pawnList.Add(p.Key, CreatePawnList());
+            log.Info($"add pawn list for player {p.Key.Name}");
         }
         _runner.SetPawnList(_pawnList);
+        log.Info("Pawn list has been created");
     }
     static public List<IPawn> CreatePawnList()
     {
