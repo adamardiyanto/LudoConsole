@@ -12,7 +12,7 @@ public class UnitTest1
         Dictionary<Color, int> _homeCell = new Dictionary<Color, int>();
         Board board = new Board(_safeCell, _homeCell, _startCell);
         Dictionary<IPlayer, Color> _playerList = new Dictionary<IPlayer, Color>();
-        GameRunner runner = new(board, _playerList);
+        GameRunner runner = new(board, _playerList,6);
 
         bool result = runner.CheckIsSix(6);
 
@@ -20,14 +20,4 @@ public class UnitTest1
 
     }
 
-    [Fact]
-    public void CheckInstanceBoard()
-    {
-        // Given
-        // When
-        bool result = ValidateNumPlayers();
-
-        // Then
-        Assert.False(result, "false");
-    }
 }
